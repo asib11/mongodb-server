@@ -35,6 +35,13 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/users/:id', async(req, res)=>{
+      const id = req.params.id;
+      const quary = {_id: new ObjectId(id)};
+      const result = await userCollection.findOne(quary);
+      res.send(result)
+    })
+
     app.post('/users', async(req, res) =>{
       const user = req.body;
       console.log(user);
@@ -46,8 +53,8 @@ async function run() {
       const id = req.params.id;
       console.log('i get id:', id);
       const quary = {_id: new ObjectId(id)};
-      const result = await userCollection.deleteOne(quary);
-      res.send(result);
+      const user = await userCollection.deleteOne(quary);
+      res.send(user);
     })
 
     // Send a ping to confirm a successful connection
